@@ -30,7 +30,7 @@ namespace AppEmailFernando
                 btnEmail.Enabled = true;
                 textBoxPath.Text = $"{ Environment.CurrentDirectory}\\{ CourseCoupon.Path }";
             }
-            catch (Exception ex)
+            catch(Exception ex)
             {
                 _items = null;
                 
@@ -46,7 +46,7 @@ namespace AppEmailFernando
 
         private void btnEmail_Click(object sender, EventArgs e)
         {
-            if (!Open())
+            if(!Open())
                 return;
 
             EmailForm form = new EmailForm();
@@ -66,7 +66,7 @@ namespace AppEmailFernando
 
         private void btnManage_Click(object sender, EventArgs e)
         {
-            if (!Open())
+            if(!Open())
                 return;
 
             CourseCouponForm form = new CourseCouponForm();

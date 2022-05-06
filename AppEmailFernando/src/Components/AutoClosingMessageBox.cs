@@ -40,7 +40,7 @@ namespace AppEmailFernando.Components
         {
             IntPtr window = FindWindow(null, _caption);
 
-            if (window != IntPtr.Zero)
+            if(window != IntPtr.Zero)
                 SendMessage(window, 0x0010, IntPtr.Zero, IntPtr.Zero);
 
             _timeoutTimer.Dispose();

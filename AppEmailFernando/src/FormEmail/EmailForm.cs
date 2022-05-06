@@ -89,17 +89,17 @@ namespace AppEmailFernando
         {
             _filteredItems = new List<CourseCoupon>(_items);
 
-            if (textBoxSearch.Text.Length > 0)
+            if(textBoxSearch.Text.Length > 0)
                 _filteredItems = _filteredItems.FindAll(x => x.CourseName.ToLower().IndexOf(textBoxSearch.Text.ToLower()) != -1 || x.Marked);
 
-            if (_orderAscending)
+            if(_orderAscending)
                 _filteredItems = _filteredItems.OrderByDescending(x => x.CourseName).ToList();
             else
                 _filteredItems = _filteredItems.OrderBy(x => x.CourseName).ToList();
 
             checkedListBox.Items.Clear();
 
-            foreach (var item in _filteredItems)
+            foreach(var item in _filteredItems)
                 checkedListBox.Items.Add($"({item.MaxRedemptions}) - {item.CourseName}", item.Marked);
 
             UpdateEmailResult();
@@ -107,7 +107,7 @@ namespace AppEmailFernando
 
         private void MarkAllItems(bool marked)
         {
-            foreach (var item in _filteredItems)
+            foreach(var item in _filteredItems)
                 item.Marked = marked;
 
             UpdateItemsList();
@@ -117,14 +117,14 @@ namespace AppEmailFernando
         {
             int index = this.checkedListBox.SelectedIndex;
 
-            if (index < 0 || index >= _filteredItems.Count)
+            if(index < 0 || index >= _filteredItems.Count)
                 return;
 
             _filteredItems[index].Marked = (e.NewValue == CheckState.Checked);
 
             var originalItem = _items.Find(x => x.CourseId == _filteredItems[index].CourseId);
 
-            if (originalItem != null)
+            if(originalItem != null)
                 originalItem.Marked = _filteredItems[index].Marked;
 
             UpdateEmailResult();
@@ -158,9 +158,9 @@ namespace AppEmailFernando
 
         private void Generate()
         {
-            foreach (var item in _items)
+            foreach(var item in _items)
             {
-                if (item.Marked && item.MaxRedemptions == 0)
+                if(item.Marked && item.MaxRedemptions == 0)
                 {
                     AutoClosingMessageBox.Show($@"O curso ""{item.CourseName}"" não tem nenhum cupom com saldo disponivel!", "Erro", 3000);
 
@@ -170,15 +170,15 @@ namespace AppEmailFernando
 
             CopyEmailResult();
 
-            foreach (var item in _items)
+            foreach(var item in _items)
             {
-                if (item.Marked)
+                if(item.Marked)
                 {
                     item.MaxRedemptions--;
 
                     var filteredItem = _filteredItems.Find(x => x.CourseId == item.CourseId);
 
-                    if (filteredItem != null)
+                    if(filteredItem != null)
                         filteredItem.MaxRedemptions = item.MaxRedemptions;
                 }
             }
@@ -187,7 +187,7 @@ namespace AppEmailFernando
             {
                 CourseCoupon.Save(_items);
             }
-            catch (Exception e)
+            catch(Exception e)
             {
                 MessageBox.Show($"Erro ao salvar alterações: {e.Message}");
 
@@ -206,15 +206,15 @@ namespace AppEmailFernando
       
         private void RevertRedemptions()
         {
-            foreach (var item in _items)
+            foreach(var item in _items)
             {
-                if (item.Marked)
+                if(item.Marked)
                 {
                     item.MaxRedemptions++;
 
                     var filteredItem = _filteredItems.Find(x => x.CourseId == item.CourseId);
 
-                    if (filteredItem != null)
+                    if(filteredItem != null)
                         filteredItem.MaxRedemptions = item.MaxRedemptions;
                 }
             }
@@ -229,7 +229,7 @@ namespace AppEmailFernando
         {
             string result = string.Empty;
 
-            foreach (var item in _items.Where(x => x.Marked))
+            foreach(var item in _items.Where(x => x.Marked))
                 result += $"{item.CourseCuponUrl}{Environment.NewLine}";
 
             return result;
@@ -272,7 +272,7 @@ namespace AppEmailFernando
             {
                 if(File.Exists(HeaderPath))
                 {
-                    using (StreamReader reader = File.OpenText(HeaderPath))
+                    using(StreamReader reader = File.OpenText(HeaderPath))
                     {
                         textBoxHeader.Text = reader.ReadToEnd();
                     }
@@ -285,9 +285,9 @@ namespace AppEmailFernando
 
             try
             {
-                if (File.Exists(HeaderPath))
+                if(File.Exists(HeaderPath))
                 {
-                    using (StreamReader reader = File.OpenText(BaseBoardPath))
+                    using(StreamReader reader = File.OpenText(BaseBoardPath))
                     {
                         textBoxBaseBoard.Text = reader.ReadToEnd();
                     }
@@ -303,24 +303,24 @@ namespace AppEmailFernando
         {
             try
             {
-                using (StreamWriter writer = new StreamWriter(BaseBoardPath))
+                using(StreamWriter writer = new StreamWriter(BaseBoardPath))
                 {
                     writer.Write(textBoxBaseBoard.Text);
                 }
             }
-            catch (Exception e)
+            catch(Exception e)
             {
                 MessageBox.Show($"Falha ao ler dados do rodapé: {e.Message}");
             }
 
             try
             {
-                using (StreamWriter writer = new StreamWriter(HeaderPath))
+                using(StreamWriter writer = new StreamWriter(HeaderPath))
                 {
                     writer.Write(textBoxHeader.Text);
                 }
             }
-            catch (Exception e)
+            catch(Exception e)
             {
                 MessageBox.Show($"Falha ao ler dados do cabeçalho: {e.Message}");
             }

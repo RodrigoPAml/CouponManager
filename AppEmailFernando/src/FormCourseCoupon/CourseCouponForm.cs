@@ -25,7 +25,7 @@ namespace AppEmailFernando
  
         private void CuponsForm_KeyUp(object sender, KeyEventArgs e)
         {
-            switch (e.KeyCode)
+            switch(e.KeyCode)
             {
                 case Keys.Delete:
                     DeleteCurrentFromList();
@@ -53,7 +53,7 @@ namespace AppEmailFernando
             textBoxCuponUses.Enabled = enable;
             btnDelete.Enabled = enable;
 
-            if (!enable)
+            if(!enable)
             {
                 textBoxCourseId.Text = string.Empty;
                 textBoxCourseName.Text = string.Empty;
@@ -69,7 +69,7 @@ namespace AppEmailFernando
         {
             _items = new List<CourseCoupon>(items);
 
-            foreach (var item in items)
+            foreach(var item in items)
                 listBox.Items.Add($"{item.CourseId} - {item.CourseName}");
         }
 
@@ -79,7 +79,7 @@ namespace AppEmailFernando
 
             int index = listBox.SelectedIndex;
 
-            if (index < 0 || index >= _items.Count)
+            if(index < 0 || index >= _items.Count)
                 return;
 
             _items.RemoveAt(index);
@@ -137,7 +137,7 @@ namespace AppEmailFernando
 
             int index = listBox.SelectedIndex;
 
-            if (index < 0 || index >= _items.Count)
+            if(index < 0 || index >= _items.Count)
             {
                 SetButtonsState(false);
                 return;
@@ -158,49 +158,49 @@ namespace AppEmailFernando
 
         private void textBoxCourseId_Validate(object sender, KeyPressEventArgs e)
         {
-            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
+            if(!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
             {
                 e.Handled = true;
                 return;
             }
 
-            if ((e.KeyChar == '.') && ((sender as TextBox).Text.IndexOf('.') > -1))
+            if((e.KeyChar == '.') && ((sender as TextBox).Text.IndexOf('.') > -1))
                 e.Handled = true;
         }
 
         private void textBoxCourseName_Validate(object sender, KeyPressEventArgs e)
         {
-            if (e.KeyChar == ';')
+            if(e.KeyChar == ';')
                 e.Handled = true;
         }
 
         private void textBoxCuponCode_Validate(object sender, KeyPressEventArgs e)
         {
-            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
+            if(!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
             {
                 e.Handled = true;
                 return;
             }
 
-            if ((e.KeyChar == '.') && ((sender as TextBox).Text.IndexOf('.') > -1))
+            if((e.KeyChar == '.') && ((sender as TextBox).Text.IndexOf('.') > -1))
                 e.Handled = true;
         }
 
         private void textBoxCuponUrl_Validate(object sender, KeyPressEventArgs e)
         {
-            if (e.KeyChar == ';')
+            if(e.KeyChar == ';')
                 e.Handled = true;
         }
 
         private void textBoxCuponUses_Validate(object sender, KeyPressEventArgs e)
         {
-            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
+            if(!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
             {
                 e.Handled = true;
                 return;
             }
 
-            if ((e.KeyChar == '.') && ((sender as TextBox).Text.IndexOf('.') > -1))
+            if((e.KeyChar == '.') && ((sender as TextBox).Text.IndexOf('.') > -1))
                 e.Handled = true;
         }
 
@@ -210,10 +210,10 @@ namespace AppEmailFernando
 
         private void UpdateListBoxItem(int index)
         {
-            if (index < 0 || index >= _items.Count)
+            if(index < 0 || index >= _items.Count)
                 return;
 
-            if (index >= listBox.Items.Count)
+            if(index >= listBox.Items.Count)
                 return;
 
             listBox.SelectedIndexChanged -= listBox_SelectedIndexChanged;
@@ -225,19 +225,19 @@ namespace AppEmailFernando
         {
             int index = listBox.SelectedIndex;
 
-            if (index < 0 || index >= _items.Count)
+            if(index < 0 || index >= _items.Count)
                 return;
 
             TextBox textBox = sender as TextBox;
 
             if(textBox.Text != _items[index].CourseId.ToString())
             {
-                if (textBox.Text.Length == 0)
+                if(textBox.Text.Length == 0)
                 {
                     _items[index].CourseId = 0;
                     btnSave.Enabled = true;
                 }
-                else if (ulong.TryParse(textBox.Text, out ulong fromText))
+                else if(ulong.TryParse(textBox.Text, out ulong fromText))
                 {
                     _items[index].CourseId = fromText;
                     btnSave.Enabled = true;
@@ -257,12 +257,12 @@ namespace AppEmailFernando
         {
             int index = listBox.SelectedIndex;
 
-            if (index < 0 || index >= _items.Count)
+            if(index < 0 || index >= _items.Count)
                 return;
 
             TextBox textBox = sender as TextBox;
 
-            if (textBox.Text != _items[index].CourseName)
+            if(textBox.Text != _items[index].CourseName)
             {
                 _items[index].CourseName = textBox.Text;
                 btnSave.Enabled = true;
@@ -274,19 +274,19 @@ namespace AppEmailFernando
         {
             int index = listBox.SelectedIndex;
 
-            if (index < 0 || index >= _items.Count)
+            if(index < 0 || index >= _items.Count)
                 return;
 
             TextBox textBox = sender as TextBox;
 
-            if (textBox.Text != _items[index].CouponCode.ToString())
+            if(textBox.Text != _items[index].CouponCode.ToString())
             {
-                if (textBox.Text.Length == 0)
+                if(textBox.Text.Length == 0)
                 {
                     _items[index].CouponCode = 0;
                     btnSave.Enabled = true;
                 }
-                else if (ulong.TryParse(textBox.Text, out ulong fromText))
+                else if(ulong.TryParse(textBox.Text, out ulong fromText))
                 {
                     _items[index].CouponCode = fromText;
                     btnSave.Enabled = true;
@@ -304,12 +304,12 @@ namespace AppEmailFernando
         {
             int index = listBox.SelectedIndex;
 
-            if (index < 0 || index >= _items.Count)
+            if(index < 0 || index >= _items.Count)
                 return;
 
             TextBox textBox = sender as TextBox;
 
-            if (textBox.Text != _items[index].CourseCuponUrl)
+            if(textBox.Text != _items[index].CourseCuponUrl)
             {
                 _items[index].CourseCuponUrl = textBox.Text;
                 btnSave.Enabled = true;
@@ -320,19 +320,19 @@ namespace AppEmailFernando
         {
             int index = listBox.SelectedIndex;
 
-            if (index < 0 || index >= _items.Count)
+            if(index < 0 || index >= _items.Count)
                 return;
 
             TextBox textBox = sender as TextBox;
 
-            if (textBox.Text != _items[index].MaxRedemptions.ToString())
+            if(textBox.Text != _items[index].MaxRedemptions.ToString())
             {
-                if (textBox.Text.Length == 0)
+                if(textBox.Text.Length == 0)
                 {
                     _items[index].MaxRedemptions = 0;
                     btnSave.Enabled = true;
                 }
-                else if (ulong.TryParse(textBox.Text, out ulong fromText))
+                else if(ulong.TryParse(textBox.Text, out ulong fromText))
                 {
                     _items[index].MaxRedemptions = fromText;
                     btnSave.Enabled = true;
@@ -350,11 +350,11 @@ namespace AppEmailFernando
 
         private void CourseCouponForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (btnSave.Enabled)
+            if(btnSave.Enabled)
             {
                 var result = MessageBox.Show("Salvar alterações", "Você deseja salvar as alterações?", MessageBoxButtons.YesNo);
 
-                if (result == DialogResult.Yes)
+                if(result == DialogResult.Yes)
                     e.Cancel = !Save();
             }
         }
