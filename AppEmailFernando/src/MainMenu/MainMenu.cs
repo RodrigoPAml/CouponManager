@@ -34,7 +34,7 @@ namespace AppEmailFernando
             {
                 _items = null;
                 
-                textBoxPath.Text = $@"Falha ao importar ""{Environment.CurrentDirectory}\{CourseCoupon.Path }""";
+                textBoxPath.Text = $@"Falha ao importar ""{Environment.CurrentDirectory}\\{CourseCoupon.Path }""";
 
                 MessageBox.Show($"Falha ao abrir: {ex.Message}");
 
