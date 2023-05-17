@@ -13,7 +13,7 @@ Put the [input file](AppEmailFernando/input.csv) in the folder of the generated 
 
 ## Screens
 
-- Show the options
+- Show the program options
 
 ![Screenshot](AppEmailFernando/images/tela_inicial.png)
 
